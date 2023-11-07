@@ -51,13 +51,21 @@ jobs:
       #       nordicplayground/nrfconnect-sdk:${{ matrix.sdk_nrf_branch }} \
       #         west build -b nrf9160dk_nrf9160ns --build-dir /workdir/project/build -- -DEXTRA_CFLAGS="-Werror -Wno-dev"
 
-      - name: Build peripheral_lbs
+      # - name: Build peripheral_lbs
+      #   run: |
+      #     docker run --rm \
+      #       -v ${PWD}:/workdir/project \
+      #       -w /workdir/nrf/samples/bluetooth/peripheral_lbs \
+      #       nordicplayground/nrfconnect-sdk:${{ matrix.sdk_nrf_branch }} \
+      #         west build -b nrf5340dk_nrf5340_cpuapp --build-dir /workdir/project/build
+
+      - name: Build example_test
         run: |
           docker run --rm \
             -v ${PWD}:/workdir/project \
-            -w /workdir/nrf/samples/bluetooth/peripheral_lbs \
+            -w /workdir/nrf/tests/unity/example_test \
             nordicplayground/nrfconnect-sdk:${{ matrix.sdk_nrf_branch }} \
-              west build -b nrf5340dk_nrf5340_cpuapp --build-dir /workdir/project/build
+              west build -b native_posix -t run
 
       - uses: actions/upload-artifact@v3
         with:
