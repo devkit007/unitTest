@@ -1,4 +1,4 @@
-name: Verify Dockerfile
+name: Verify Dockerfile yet
 
 on: pull_request
 
