@@ -43,13 +43,21 @@ jobs:
             --build-arg toolchain_version=${{ matrix.toolchain_version }} \
             .
 
-      - name: Build asset_tracker_v2 application
+      # - name: Build asset_tracker_v2 application
+      #   run: |
+      #     docker run --rm \
+      #       -v ${PWD}:/workdir/project \
+      #       -w /workdir/nrf/applications/asset_tracker_v2 \
+      #       nordicplayground/nrfconnect-sdk:${{ matrix.sdk_nrf_branch }} \
+      #         west build -b nrf9160dk_nrf9160ns --build-dir /workdir/project/build -- -DEXTRA_CFLAGS="-Werror -Wno-dev"
+
+      - name: Build peripheral_lbs
         run: |
           docker run --rm \
             -v ${PWD}:/workdir/project \
-            -w /workdir/nrf/applications/asset_tracker_v2 \
+            -w /workdir/nrf/samples/bluetooth/peripheral_lbs \
             nordicplayground/nrfconnect-sdk:${{ matrix.sdk_nrf_branch }} \
-              west build -b nrf9160dk_nrf9160ns --build-dir /workdir/project/build -- -DEXTRA_CFLAGS="-Werror -Wno-dev"
+              west build -b nrf5340dk_nrf5340_cpuapp --build-dir /workdir/project/build
 
       - uses: actions/upload-artifact@v3
         with:
