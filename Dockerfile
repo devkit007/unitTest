@@ -12,7 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN <<EOT
     apt-get -y update
     apt-get -y upgrade
-    apt-get -y install wget unzip
+    apt-get -y install wget unzip  qemu ruby
 EOT
 
 # Install toolchain
